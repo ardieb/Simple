@@ -5,8 +5,6 @@
 #ifndef SIMPLE_ENTRYPOINT_H
 #define SIMPLE_ENTRYPOINT_H
 
-#include <Simple/SimpleCore.h>
-
 int main(int argc, char** argv) {
     auto app = Simple::CreateNewApp();
     app->launch();

@@ -5,9 +5,7 @@
 #ifndef SIMPLE_CIRCULARBUFFER_H
 #define SIMPLE_CIRCULARBUFFER_H
 
-#include <Simple/SimpleCore.h>
-
-template<class T, std::size_t maxsz_bits>
+template <typename T, std::size_t maxsz_bits>
 class CircularBuffer {
     static constexpr std::size_t bufsz = 1 << maxsz_bits;
     static constexpr std::size_t maxsz = bufsz - 1;
@@ -16,20 +14,18 @@ class CircularBuffer {
     std::size_t head = 0;
     std::size_t tail = 0;
     alignas(T) uint8_t buffer[bufsz*sizeof(T)];
-    //Having buffer as T[bufsz] is possible 
+    //  Having buffer as T[bufsz] is possible
     //  IF we'll replace placement move constructors with move assignments
     //  AND drop explicit destructor calls
-    //However, it will require T to have a default constructor,
+    //  However, it will require T to have a default constructor,
     //  so at the moment I prefer to deal with pure buffers
     //  and to have the only requirement that T is move-constructible
-
 public:
     std::size_t size() {
         return head - tail + (((std::size_t)(head>=tail)-(std::size_t)1) & bufsz);
-
     }
 
-    void push_back(T&& t) {
+    void pushBack(T&& t) {
         assert(size() < maxsz);
         new(tbuffer(head)) T(std::move(t));
         head = ( head + 1 ) & mask;
@@ -40,7 +36,7 @@ public:
         T* ttail = tbuffer(tail);
         T ret = std::move(*ttail);
         ttail->~T();
-        tail = ( tail + 1 ) & mask;
+        tail = (tail + 1) & mask;
         return ret;
     }
 

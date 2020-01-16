@@ -5,7 +5,6 @@
 #ifndef SIMPLE_LOG_H
 #define SIMPLE_LOG_H
 
-#include <Simple/SimpleCore.h>
 #include <spdlog/spdlog.h>
 
 namespace Simple {

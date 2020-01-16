@@ -5,10 +5,8 @@
 #ifndef SIMPLE_MWSRFIXEDSIZEQUEUE_H
 #define SIMPLE_MWSRFIXEDSIZEQUEUE_H
 
-#include <Simple/SimpleCore.h>
-
-template <typename FixedSizeCollection, class DropPolicy>
-// DropPolicy should have function
+template <typename FixedSizeCollection, typename DropPolicy>
+//    DropPolicy should have function
 //    pushAndDropOne(T&& t, FixedSizeCollection& coll)
 //    it MAY either to skip t,
 //    OR to drop something from coll, while pushing t
@@ -19,32 +17,27 @@ private:
     std::condition_variable waitrd;
     FixedSizeCollection coll;
     bool killflag = false;
-
     //stats:
     int ndrops = 0;
     std::size_t hwmsize = 0;//high watermark on queue size
-
 public:
-    using T = typename FixedSizeCollection::value_type;
+    using T = typename FixedSizeCollection::ValueType;
 
-    explicit MWSRFixedSizeQueueWithDropPolicy(const DropPolicy& drop_)
-            : drop(drop_) {
-    }
+    explicit MWSRFixedSizeQueueWithDropPolicy(const DropPolicy& drop_) : drop(drop_) { }
 
-    void push_back(T&& it) {
+    void pushBack(T&& item) {
         //if the queue is full, calls drop.pushAndDropOne()
         {//creating a scope for lock
             std::unique_lock<std::mutex> lock(mx);
 
-            if(coll.is_full()) {//you MAY want to use
-                //  unlikely() here
+            if (coll.isFull()) {
                 ++ndrops;
-                drop.pushAndDropOne(it, coll);
+                drop.pushAndDropOne(item, coll);
                 return;
             }
 
-            assert(!coll.is_full());
-            coll.push_back(std::move(it));
+            assert(!coll.isFull());
+            coll.pushBack(std::move(item));
             std::size_t sz = coll.size();
             hwmsize = max(hwmsize,sz);
         }//unlocking mx
@@ -58,11 +51,12 @@ public:
             waitrd.wait(lock);
         }
 
-        if(killflag)
-            return std::pair<bool,T>(false,T());
+        if (killflag) {
+            return std::pair<bool, T>(false, T());
+        }
         assert(coll.size() > 0);
         T ret = std::move(coll.front());
-        coll.pop_front();
+        coll.pop();
         lock.unlock();
         return std::make_pair(true, std::move(ret));
     }

@@ -4,16 +4,18 @@
 # Optionally glob, but only for CMake 3.12 or later:
 # file(GLOB HEADER_LIST CONFIGURE_DEPENDS "${ModernCMakeExample_SOURCE_DIR}/include/modern/*.hpp")
 set(HEADER_LIST
-        "${Simple_SOURCE_DIR}/include/Simple/SimpleCore.h"
+        "${Simple_SOURCE_DIR}/include/Simple/PCHeader.h"
         "${Simple_SOURCE_DIR}/include/Simple/App.h"
         "${Simple_SOURCE_DIR}/include/Simple/Log.h"
         "${Simple_SOURCE_DIR}/include/Simple/MWSRFixedSizeQueue.h"
         "${Simple_SOURCE_DIR}/include/Simple/CircularBuffer.h"
-        "${Simple_SOURCE_DIR}/include/Simple/Events/Event.h")
+        "${Simple_SOURCE_DIR}/include/Simple/Events/Event.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Events/EventDispatcher.h")
 set(SOURCE_LIST
         "${Simple_SOURCE_DIR}/src/Core.cpp"
         "${Simple_SOURCE_DIR}/src/App.cpp"
-        "${Simple_SOURCE_DIR}/src/Log.cpp")
+        "${Simple_SOURCE_DIR}/src/Log.cpp"
+        "${Simple_SOURCE_DIR}/src/PCHeader.cpp")
 
 # Make an automatic library - will be static or dynamic based on user setting
 add_library(SimpleEngine SHARED ${SOURCE_LIST} ${HEADER_LIST})
@@ -39,6 +41,9 @@ target_compile_features(SimpleEngine PUBLIC cxx_std_17)
 
 configure_file(${Simple_SOURCE_DIR}/include/Cmake.h.in ${Simple_BINARY_DIR}/include/Cmake.h)
 target_include_directories(SimpleEngine PUBLIC ${Simple_BINARY_DIR}/include/)
+
+include("${Simple_SOURCE_DIR}/cmake/PrecompiledHeader.cmake")
+add_precompiled_header(SimpleEngine PCHeader.h FORCEINCLUDE)
 
 # IDEs should put the headers in a nice place
 source_group(TREE "${PROJECT_SOURCE_DIR}/include" PREFIX "Header Files" FILES ${HEADER_LIST})
