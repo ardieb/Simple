@@ -25,13 +25,8 @@ class CircularBuffer {
 
 public:
     std::size_t size() {
-        return (head – tail + (((std::size_t)(head>=tail)-(std::size_t)1) & bufsz));
-        //trickery to avoid pipeline stalls via arithmetic
-        //supposedly equivalent to:
-        //if(head >= tail)
-        //  return head – tail;
-        //else
-        //  return head + bufsz - tail;
+        return head - tail + (((std::size_t)(head>=tail)-(std::size_t)1) & bufsz);
+
     }
 
     void push_back(T&& t) {
@@ -40,7 +35,7 @@ public:
         head = ( head + 1 ) & mask;
     }
 
-    T pop_front() {
+    T pop() {
         assert(size() > 0);
         T* ttail = tbuffer(tail);
         T ret = std::move(*ttail);

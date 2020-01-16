@@ -5,26 +5,31 @@
 #include <Simple/Log.h>
 
 namespace Simple {
-    std::shared_ptr<spdlog::logger> Log::core_logger;
-    std::shared_ptr<spdlog::logger> Log::client_logger;
+    std::shared_ptr<spdlog::async_logger> Log::coreLog;
+    std::shared_ptr<spdlog::async_logger> Log::clientLog;
 
     void Log::create() {
         spdlog::set_pattern("%^[%T] %n %v%$");
+        {
+            std::vector<spdlog::sink_ptr> sinks;
+            sinks.push_back(
+                    std::make_shared<spdlog::sinks::ansicolor_stdout_sink_mt>());
+            sinks.push_back(
+                    std::make_shared<spdlog::sinks::daily_file_sink<std::mutex, spdlog::sinks::dateonly_daily_file_name_calculator>>(
+                            "log/core_log.txt", 0, 0));
+            coreLog = std::make_shared<spdlog::async_logger>(
+                    "Log", begin(sinks), end(sinks), 32768);
+        }
+        {
+            std::vector<spdlog::sink_ptr> sinks;
+            sinks.push_back(
+                    std::make_shared<spdlog::sinks::ansicolor_stdout_sink_mt>());
+            sinks.push_back(
+                    std::make_shared<spdlog::sinks::daily_file_sink<std::mutex, spdlog::sinks::dateonly_daily_file_name_calculator>>(
+                            "log/client_log.txt", 0, 0));
+            clientLog = std::make_shared<spdlog::async_logger>(
+                    "Log", begin(sinks), end(sinks), 32768);
+        }
 
-        auto core_console_sink = std::make_shared<spdlog::sinks::ansicolor_stdout_sink_mt>();
-        auto client_console_sink = std::make_shared<spdlog::sinks::ansicolor_stdout_sink_mt>();
-        auto core_file_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>("DailyCoreLogger", "logs/core.txt", 2, 30);
-        auto client_file_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>("DailyClientLogger", "logs/client.txt", 2, 30);
-
-        core_console_sink->set_level(spdlog::level::trace);
-        client_console_sink->set_level(spdlog::level::trace);
-        core_file_sink->set_level(spdlog::level::debug);
-        client_file_sink->set_level(spdlog::level::debug);
-
-        auto core_log = spdlog::logger("CoreLogger", { core_console_sink, core_file_sink });
-        auto client_log = spdlog::logger("ClientLogger", { client_console_sink, client_file_sink });
-
-        core_logger = std::make_shared<spdlog::logger>(std::move(core_log));
-        client_logger = std::make_shared<spdlog::logger>(std::move(client_log));
     }
 };
