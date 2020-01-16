@@ -27,5 +27,6 @@
 #include <utility>
 #include <memory>
 #include <functional>
+#include <Cmake.h>
 
 #endif //SIMPLE_SIMPLECORE_H

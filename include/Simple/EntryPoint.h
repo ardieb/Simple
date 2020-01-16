@@ -2,15 +2,15 @@
 // Created by Arthur Burke on 2020-01-12.
 //
 
-#ifndef SIMPLE_ENTRYPOINT_HPP
-#define SIMPLE_ENTRYPOINT_HPP
+#ifndef SIMPLE_ENTRYPOINT_H
+#define SIMPLE_ENTRYPOINT_H
 
 #include <Simple/SimpleCore.h>
 
 int main(int argc, char** argv) {
-    auto app = Simple::create_app();
+    auto app = Simple::CreateNewApp();
     app->launch();
     app->close();
 }
 
-#endif //SIMPLE_ENTRYPOINT_HPP
+#endif //SIMPLE_ENTRYPOINT_H

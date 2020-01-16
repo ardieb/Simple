@@ -5,10 +5,11 @@
 # file(GLOB HEADER_LIST CONFIGURE_DEPENDS "${ModernCMakeExample_SOURCE_DIR}/include/modern/*.hpp")
 set(HEADER_LIST
         "${Simple_SOURCE_DIR}/include/Simple/SimpleCore.h"
-        "${Simple_SOURCE_DIR}/include/Simple/App.hpp"
-        "${Simple_SOURCE_DIR}/include/Simple/Log.hpp"
-        "${Simple_SOURCE_DIR}/include/Simple/MWSRFixedSizeQueue.hpp"
-        "${Simple_SOURCE_DIR}/include/Simple/CircularBuffer.hpp")
+        "${Simple_SOURCE_DIR}/include/Simple/App.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Log.h"
+        "${Simple_SOURCE_DIR}/include/Simple/MWSRFixedSizeQueue.h"
+        "${Simple_SOURCE_DIR}/include/Simple/CircularBuffer.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Events/Event.h")
 set(SOURCE_LIST
         "${Simple_SOURCE_DIR}/src/Core.cpp"
         "${Simple_SOURCE_DIR}/src/App.cpp"
@@ -35,6 +36,9 @@ target_link_libraries(SimpleEngine PRIVATE spdlog)
 
 # All users of this library will need at least C++11
 target_compile_features(SimpleEngine PUBLIC cxx_std_17)
+
+configure_file(${Simple_SOURCE_DIR}/include/Cmake.h.in ${Simple_BINARY_DIR}/include/Cmake.h)
+target_include_directories(SimpleEngine PUBLIC ${Simple_BINARY_DIR}/include/)
 
 # IDEs should put the headers in a nice place
 source_group(TREE "${PROJECT_SOURCE_DIR}/include" PREFIX "Header Files" FILES ${HEADER_LIST})

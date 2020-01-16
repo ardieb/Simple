@@ -2,8 +2,8 @@
 // Created by Arthur Burke on 2020-01-15.
 //
 
-#ifndef SIMPLE_CIRCULARBUFFER_HPP
-#define SIMPLE_CIRCULARBUFFER_HPP
+#ifndef SIMPLE_CIRCULARBUFFER_H
+#define SIMPLE_CIRCULARBUFFER_H
 
 #include <Simple/SimpleCore.h>
 
@@ -55,4 +55,4 @@ private:
     }
 };
 
-#endif //SIMPLE_CIRCULARBUFFER_HPP
+#endif //SIMPLE_CIRCULARBUFFER_H

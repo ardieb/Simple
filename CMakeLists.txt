@@ -4,7 +4,6 @@ project(Simple
         DESCRIPTION "A simple game engine with real world physics"
         LANGUAGES CXX)
 
-
 # Only do these if this is the main project, and not if it is included through add_subdirectory
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     # Optionally set things like CMAKE_CXX_STANDARD, CMAKE_POSITION_INDEPENDENT_CODE here

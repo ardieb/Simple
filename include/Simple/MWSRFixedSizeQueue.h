@@ -2,12 +2,12 @@
 // Created by Arthur Burke on 2020-01-15.
 //
 
-#ifndef SIMPLE_MWSRFIXEDSIZEQUEUE_HPP
-#define SIMPLE_MWSRFIXEDSIZEQUEUE_HPP
+#ifndef SIMPLE_MWSRFIXEDSIZEQUEUE_H
+#define SIMPLE_MWSRFIXEDSIZEQUEUE_H
 
 #include <Simple/SimpleCore.h>
 
-template <class FixedSizeCollection, class DropPolicy>
+template <typename FixedSizeCollection, class DropPolicy>
 // DropPolicy should have function
 //    pushAndDropOne(T&& t, FixedSizeCollection& coll)
 //    it MAY either to skip t,
@@ -25,9 +25,9 @@ private:
     std::size_t hwmsize = 0;//high watermark on queue size
 
 public:
-    using T = FixedSizeCollection::value_type;
+    using T = typename FixedSizeCollection::value_type;
 
-    MWSRFixedSizeQueueWithDropPolicy(const DropPolicy& drop_)
+    explicit MWSRFixedSizeQueueWithDropPolicy(const DropPolicy& drop_)
             : drop(drop_) {
     }
 
@@ -52,14 +52,14 @@ public:
         waitrd.notify_one();
     }
 
-    std::pair<bool,T> pop_front() {
+    std::pair<bool,T> pop() {
         std::unique_lock<std::mutex> lock(mx);
         while(coll.size() == 0 && !killflag) {
             waitrd.wait(lock);
         }
 
         if(killflag)
-            return pair<bool,T>(false,T());
+            return std::pair<bool,T>(false,T());
         assert(coll.size() > 0);
         T ret = std::move(coll.front());
         coll.pop_front();
@@ -76,4 +76,4 @@ public:
     }
 };
 
-#endif //SIMPLE_MWSRFIXEDSIZEQUEUE_HPP
+#endif //SIMPLE_MWSRFIXEDSIZEQUEUE_H

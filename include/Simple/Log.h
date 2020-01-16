@@ -2,8 +2,8 @@
 // Created by Arthur Burke on 2020-01-13.
 //
 
-#ifndef SIMPLE_LOG_HPP
-#define SIMPLE_LOG_HPP
+#ifndef SIMPLE_LOG_H
+#define SIMPLE_LOG_H
 
 #include <Simple/SimpleCore.h>
 #include <spdlog/spdlog.h>
@@ -34,4 +34,4 @@ namespace Simple {
 #define SIMPLE_CLIENT_ERROR(...)   ::Simple::Log::get_client_logger()->error(__VA_ARGS__)
 #define SIMPLE_CLIENT_FATAL(...)   ::Simple::Log::get_client_logger()->fatal(__VA_ARGS__)
 
-#endif //SIMPLE_LOG_HPP
+#endif //SIMPLE_LOG_H

@@ -2,7 +2,7 @@
 // Created by Arthur Burke on 2020-01-13.
 //
 
-#include <Simple/Log.hpp>
+#include <Simple/Log.h>
 
 namespace Simple {
     std::shared_ptr<spdlog::logger> Log::core_logger;

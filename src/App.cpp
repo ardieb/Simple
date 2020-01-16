@@ -2,7 +2,7 @@
 // Created by Arthur Burke on 2020-01-12.
 //
 
-#include <Simple/App.hpp>
+#include <Simple/App.h>
 #include <iostream>
 
 Simple::App::App() {

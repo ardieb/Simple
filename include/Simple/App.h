@@ -2,8 +2,9 @@
 // Created by Arthur Burke on 2020-01-12.
 //
 
-#ifndef SIMPLE_APP_HPP
-#define SIMPLE_APP_HPP
+#ifndef SIMPLE_APP_H
+#define SIMPLE_APP_H
+
 #include <Simple/SimpleCore.h>
 
 namespace Simple {
@@ -14,7 +15,7 @@ namespace Simple {
         void launch();
         void close();
     };
-    App* create_app();
+    App* CreateNewApp();
 }
 
-#endif //SIMPLE_APP_HPP
+#endif //SIMPLE_APP_H

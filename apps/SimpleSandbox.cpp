@@ -10,7 +10,7 @@ public:
     ~SandboxApp() override = default;
 };
 
-Simple::App* Simple::create_app() {
+Simple::App* Simple::CreateNewApp() {
     return new SandboxApp();
 }
 
