@@ -6,11 +6,10 @@
 set(HEADER_LIST
         "${Simple_SOURCE_DIR}/include/Simple/PCHeader.h"
         "${Simple_SOURCE_DIR}/include/Simple/App.h"
-        "${Simple_SOURCE_DIR}/include/Simple/Log.h"
-        "${Simple_SOURCE_DIR}/include/Simple/MWSRFixedSizeQueue.h"
-        "${Simple_SOURCE_DIR}/include/Simple/CircularBuffer.h"
-        "${Simple_SOURCE_DIR}/include/Simple/Events/Event.h"
-        "${Simple_SOURCE_DIR}/include/Simple/Events/EventDispatcher.h")
+        "${Simple_SOURCE_DIR}/include/Simple/Utility/Log.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Utility/MWSRFixedSizeQueue.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Utility/CircularBuffer.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Events/Event.h")
 set(SOURCE_LIST
         "${Simple_SOURCE_DIR}/src/Core.cpp"
         "${Simple_SOURCE_DIR}/src/App.cpp"
