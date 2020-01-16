@@ -4,17 +4,21 @@
 # Optionally glob, but only for CMake 3.12 or later:
 # file(GLOB HEADER_LIST CONFIGURE_DEPENDS "${ModernCMakeExample_SOURCE_DIR}/include/modern/*.hpp")
 set(HEADER_LIST
-        "${Simple_SOURCE_DIR}/include/Simple/Core.hpp"
-        "${Simple_SOURCE_DIR}/include/Simple/App.hpp")
+        "${Simple_SOURCE_DIR}/include/Simple/SimpleCore.h"
+        "${Simple_SOURCE_DIR}/include/Simple/App.hpp"
+        "${Simple_SOURCE_DIR}/include/Simple/Log.hpp"
+        "${Simple_SOURCE_DIR}/include/Simple/MWSRFixedSizeQueue.hpp"
+        "${Simple_SOURCE_DIR}/include/Simple/CircularBuffer.hpp")
 set(SOURCE_LIST
         "${Simple_SOURCE_DIR}/src/Core.cpp"
-        "${Simple_SOURCE_DIR}/src/App.cpp")
+        "${Simple_SOURCE_DIR}/src/App.cpp"
+        "${Simple_SOURCE_DIR}/src/Log.cpp")
 
 # Make an automatic library - will be static or dynamic based on user setting
 add_library(SimpleEngine SHARED ${SOURCE_LIST} ${HEADER_LIST})
 
 # We need this directory, and users of our library will need it too
-target_include_directories(SimpleEngine PUBLIC ${Simple_SOURCE_DIR}/include)
+target_include_directories(SimpleEngine PUBLIC ${Simple_SOURCE_DIR}/include PRIVATE ${Simple_SOURCE_DIR}/include/Simple)
 target_include_directories(SimpleEngine PUBLIC ${viennacl_SOURCE_DIR}/include)
 target_include_directories(SimpleEngine PUBLIC ${spdlog_SOURCE_DIR}/include)
 target_include_directories(SimpleEngine PUBLIC ${glfw_SOURCE_DIR}/include)

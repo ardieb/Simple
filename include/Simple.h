@@ -6,7 +6,7 @@
 #ifndef SIMPLE_SIMPLE_H
 #define SIMPLE_SIMPLE_H
 
-#include <Simple/Core.hpp>
+#include <Simple/SimpleCore.h>
 
 // ---- Main App -----------------------------------------------------------------------------------------------------
 #include <Simple/App.hpp>

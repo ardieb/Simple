@@ -5,8 +5,10 @@
 #ifndef SIMPLE_ENTRYPOINT_HPP
 #define SIMPLE_ENTRYPOINT_HPP
 
+#include <Simple/SimpleCore.h>
+
 int main(int argc, char** argv) {
-    auto app = Simple::createApp();
+    auto app = Simple::create_app();
     app->launch();
     app->close();
 }

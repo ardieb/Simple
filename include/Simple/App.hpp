@@ -4,6 +4,7 @@
 
 #ifndef SIMPLE_APP_HPP
 #define SIMPLE_APP_HPP
+#include <Simple/SimpleCore.h>
 
 namespace Simple {
     class App {
@@ -13,7 +14,7 @@ namespace Simple {
         void launch();
         void close();
     };
-    App* createApp();
+    App* create_app();
 }
 
 #endif //SIMPLE_APP_HPP
