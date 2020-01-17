@@ -21,7 +21,8 @@ namespace Simple {
         AppUpdate,
         AppRender, // App events
         KeyPressed,
-        KeyRelease, // Keyboard events
+        KeyRelease,
+        KeyTyped, // Keyboard events
         MouseButtonPressed,
         MouseButtonRelease,
         MouseMoved,
@@ -45,11 +46,12 @@ namespace Simple {
         CRITICAL,
     };
 
-    #define EVENT_CLASS_TYPE(type) static EventType getStaticType() { return EventType::##type; }\
+    #define EVENT_CLASS_TYPE(type) static EventType getStaticType() { return EventType::type; }\
                                virtual EventType getEventType() const override { return getStaticType(); }\
                                virtual const char* getName() const override { return #type; }
-    #define EVENT_CLASS_CATEGORY(category) virtual int getCategoryFlags() const override { return category; }
+    #define EVENT_CLASS_CATEGORY(category) virtual unsigned int getCategoryFlags() const override { return category; }
 
+    // Events must be move constructable
     class Event {
         friend class EventDispatcher;
     public:

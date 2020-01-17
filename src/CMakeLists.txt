@@ -9,7 +9,10 @@ set(HEADER_LIST
         "${Simple_SOURCE_DIR}/include/Simple/Utility/Log.h"
         "${Simple_SOURCE_DIR}/include/Simple/Utility/MWSRFixedSizeQueue.h"
         "${Simple_SOURCE_DIR}/include/Simple/Utility/CircularBuffer.h"
-        "${Simple_SOURCE_DIR}/include/Simple/Events/Event.h")
+        "${Simple_SOURCE_DIR}/include/Simple/Core/Input.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Events/Event.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Events/ApplicationEvent.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Events/KeyEvent.h")
 set(SOURCE_LIST
         "${Simple_SOURCE_DIR}/src/Core.cpp"
         "${Simple_SOURCE_DIR}/src/App.cpp"
@@ -21,7 +24,7 @@ add_library(SimpleEngine SHARED ${SOURCE_LIST} ${HEADER_LIST})
 
 # We need this directory, and users of our library will need it too
 target_include_directories(SimpleEngine PUBLIC ${Simple_SOURCE_DIR}/include PRIVATE ${Simple_SOURCE_DIR}/include/Simple)
-target_include_directories(SimpleEngine PUBLIC ${viennacl_SOURCE_DIR}/include)
+target_include_directories(SimpleEngine PUBLIC ${viennacl_SOURCE_DIR}/viennacl)
 target_include_directories(SimpleEngine PUBLIC ${spdlog_SOURCE_DIR}/include)
 target_include_directories(SimpleEngine PUBLIC ${glfw_SOURCE_DIR}/include)
 target_include_directories(SimpleEngine PUBLIC ${fmtlib_SOURCE_DIR}/include)
