@@ -5,8 +5,6 @@
 #ifndef SIMPLE_APP_H
 #define SIMPLE_APP_H
 
-#include <Simple/PCHeader.h>
-
 namespace Simple {
     class App {
     public:

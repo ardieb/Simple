@@ -24,7 +24,7 @@ namespace Simple {
         KeyRelease,
         KeyTyped, // Keyboard events
         MouseButtonPressed,
-        MouseButtonRelease,
+        MouseButtonReleased,
         MouseMoved,
         MouseScrolled // Mouse events
     };

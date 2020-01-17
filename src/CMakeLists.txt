@@ -4,19 +4,28 @@
 # Optionally glob, but only for CMake 3.12 or later:
 # file(GLOB HEADER_LIST CONFIGURE_DEPENDS "${ModernCMakeExample_SOURCE_DIR}/include/modern/*.hpp")
 set(HEADER_LIST
+        # Pre Compiled Header
         "${Simple_SOURCE_DIR}/include/Simple/PCHeader.h"
+        # Main App
         "${Simple_SOURCE_DIR}/include/Simple/App.h"
+        # Utility Headers
         "${Simple_SOURCE_DIR}/include/Simple/Utility/Log.h"
         "${Simple_SOURCE_DIR}/include/Simple/Utility/MWSRFixedSizeQueue.h"
         "${Simple_SOURCE_DIR}/include/Simple/Utility/CircularBuffer.h"
+        # Core headers
         "${Simple_SOURCE_DIR}/include/Simple/Core/Input.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Core/KeyCodes.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Core/MouseCodes.h"
+        # Events
         "${Simple_SOURCE_DIR}/include/Simple/Events/Event.h"
         "${Simple_SOURCE_DIR}/include/Simple/Events/ApplicationEvent.h"
-        "${Simple_SOURCE_DIR}/include/Simple/Events/KeyEvent.h")
+        "${Simple_SOURCE_DIR}/include/Simple/Events/KeyEvent.h"
+        "${Simple_SOURCE_DIR}/include/Simple/Events/MouseEvent.h")
 set(SOURCE_LIST
         "${Simple_SOURCE_DIR}/src/Core.cpp"
         "${Simple_SOURCE_DIR}/src/App.cpp"
         "${Simple_SOURCE_DIR}/src/Log.cpp"
+        "${Simple_SOURCE_DIR}/src/Input.cpp"
         "${Simple_SOURCE_DIR}/src/PCHeader.cpp")
 
 # Make an automatic library - will be static or dynamic based on user setting

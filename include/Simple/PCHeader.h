@@ -19,6 +19,8 @@
 #include <functional>
 #include <iostream>
 #include <sstream>
+#include <ostream>
+#include <cstdint>
 #include <Cmake.h>
 
 #endif //SIMPLE_PCHEADER_H
